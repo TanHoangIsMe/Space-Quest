@@ -20,13 +20,13 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Space");
+            transform.Translate(transform.position.x, 1f*Time.deltaTime, transform.position.z);
         }else if (Input.GetKeyUp(KeyCode.A))
         {
             Debug.Log("Left");
         }else if (Input.GetKeyDown(KeyCode.D))
         {
-            Debug.Log("Right");
+            transform.Translate(1f*Time.deltaTime, transform.position.y, transform.position.z);
         }
     }
 }
