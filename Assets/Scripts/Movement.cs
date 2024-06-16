@@ -23,8 +23,9 @@ public class Movement : MonoBehaviour
             transform.Translate(transform.position.x, 1f*Time.deltaTime, transform.position.z);
         }else if (Input.GetKeyUp(KeyCode.A))
         {
-            Debug.Log("Left");
-        }else if (Input.GetKeyDown(KeyCode.D))
+            transform.Translate(-1f * Time.deltaTime, transform.position.y, transform.position.z);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
         {
             transform.Translate(1f*Time.deltaTime, transform.position.y, transform.position.z);
         }
