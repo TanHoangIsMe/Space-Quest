@@ -10,10 +10,10 @@ public class OnCollisionHandler : MonoBehaviour
         switch (collision.gameObject.tag)
         {
             case "Obstacle":
-                ReloadScene();
+                RocketCrashHandler();
                 break;
             case "Finish Land":
-                NextLevelScene();
+                RocketFinishHandler();
                 break;
             default:
                 Debug.Log("");
@@ -33,5 +33,17 @@ public class OnCollisionHandler : MonoBehaviour
         if (nextScene == SceneManager.sceneCountInBuildSettings)
             SceneManager.LoadScene(0);
         else SceneManager.LoadScene(nextScene);
+    }
+
+    private void RocketFinishHandler()
+    {
+        GetComponent<Movement>().enabled = false;
+        Invoke("NextLevelScene",1f);
+    }
+
+    private void RocketCrashHandler()
+    {
+        GetComponent<Movement>().enabled = false;
+        Invoke("ReloadScene", 1f);
     }
 }
