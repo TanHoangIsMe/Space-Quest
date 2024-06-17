@@ -4,30 +4,41 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    Rigidbody rb;
+
+    [SerializeField] float forcePower;
+    [SerializeField] float rotatePower;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
-    {
-        GetInput();
+    { 
+        GoUp();
+        GoRotate();
     }
 
-    private void GetInput()
+    private void GoUp()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
-            transform.Translate(transform.position.x, 1f*Time.deltaTime, transform.position.z);
-        }else if (Input.GetKeyUp(KeyCode.A))
-        {
-            transform.Translate(-1f * Time.deltaTime, transform.position.y, transform.position.z);
+            rb.AddRelativeForce(Vector3.up * forcePower * Time.deltaTime);
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+    }
+
+    private void GoRotate()
+    {
+        if (Input.GetKey(KeyCode.RightArrow))
         {
-            transform.Translate(1f*Time.deltaTime, transform.position.y, transform.position.z);
+            transform.Rotate(Vector3.back * forcePower * Time.deltaTime);
+        }
+        else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.Rotate(Vector3.forward * forcePower * Time.deltaTime);
         }
     }
 }
