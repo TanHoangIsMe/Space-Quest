@@ -7,6 +7,8 @@ public class OnCollisionHandler : MonoBehaviour
 {
     [SerializeField] AudioClip rocketExplosionAudio;
     [SerializeField] AudioClip finishAudio;
+    ParticleSystem explosionParticle;
+    ParticleSystem finishParticle;
 
     AudioSource audioSource;
 
@@ -51,6 +53,7 @@ public class OnCollisionHandler : MonoBehaviour
 
     private void RocketFinishHandler()
     {
+        finishParticle.Play();
         audioSource.PlayOneShot(finishAudio);
         if (isTransitioning == true) audioSource.Stop();
         GetComponent<Movement>().enabled = false;
@@ -59,6 +62,7 @@ public class OnCollisionHandler : MonoBehaviour
 
     private void RocketCrashHandler()
     {
+        explosionParticle.Play();
         audioSource.PlayOneShot(rocketExplosionAudio);
         if(isTransitioning == true) audioSource.Stop();
         GetComponent<Movement>().enabled = false;
