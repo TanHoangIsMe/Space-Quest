@@ -7,8 +7,8 @@ public class OnCollisionHandler : MonoBehaviour
 {
     [SerializeField] AudioClip rocketExplosionAudio;
     [SerializeField] AudioClip finishAudio;
-    ParticleSystem explosionParticle;
-    ParticleSystem finishParticle;
+    [SerializeField] ParticleSystem explosionParticle;
+    [SerializeField] ParticleSystem finishParticle;
 
     AudioSource audioSource;
 
@@ -21,20 +21,23 @@ public class OnCollisionHandler : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        switch (collision.gameObject.tag)
+        if(isTransitioning == true) return;
+        else
         {
-            case "Obstacle":
-                RocketCrashHandler();
-                isTransitioning = true;
-                break;
-            case "Finish Land":
-                RocketFinishHandler();
-                isTransitioning = true;
-                break;
-            default:
-                Debug.Log("");
-                break;
+            switch (collision.gameObject.tag)
+            {
+                case "Obstacle":
+                    RocketCrashHandler();
+                    break;
+                case "Finish Land":
+                    RocketFinishHandler();
+                    break;
+                default:
+                    Debug.Log("");
+                    break;
+            }
         }
+        
     }
 
     private void ReloadScene()
@@ -53,18 +56,18 @@ public class OnCollisionHandler : MonoBehaviour
 
     private void RocketFinishHandler()
     {
+        isTransitioning = true;
         finishParticle.Play();
         audioSource.PlayOneShot(finishAudio);
-        if (isTransitioning == true) audioSource.Stop();
         GetComponent<Movement>().enabled = false;
         Invoke("NextLevelScene",2f);
     }
 
     private void RocketCrashHandler()
     {
+        isTransitioning = true;
         explosionParticle.Play();
         audioSource.PlayOneShot(rocketExplosionAudio);
-        if(isTransitioning == true) audioSource.Stop();
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadScene", 2f);
     }
