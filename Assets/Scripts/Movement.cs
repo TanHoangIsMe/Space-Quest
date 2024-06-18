@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
 
     [SerializeField] float forcePower;
     [SerializeField] float rotatePower;
+    [SerializeField] AudioClip rocketBoostAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +30,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             rb.AddRelativeForce(Vector3.up * forcePower * Time.deltaTime);
-            if(!audioSource.isPlaying) audioSource.Play();
+            if(!audioSource.isPlaying) audioSource.PlayOneShot(rocketBoostAudio);
         }
         else
         {

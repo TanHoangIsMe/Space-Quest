@@ -5,15 +5,29 @@ using UnityEngine.SceneManagement;
 
 public class OnCollisionHandler : MonoBehaviour
 {
+    [SerializeField] AudioClip rocketExplosionAudio;
+    [SerializeField] AudioClip finishAudio;
+
+    AudioSource audioSource;
+
+    bool isTransitioning = false;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         switch (collision.gameObject.tag)
         {
             case "Obstacle":
                 RocketCrashHandler();
+                isTransitioning = true;
                 break;
             case "Finish Land":
                 RocketFinishHandler();
+                isTransitioning = true;
                 break;
             default:
                 Debug.Log("");
@@ -37,13 +51,17 @@ public class OnCollisionHandler : MonoBehaviour
 
     private void RocketFinishHandler()
     {
+        audioSource.PlayOneShot(finishAudio);
+        if (isTransitioning == true) audioSource.Stop();
         GetComponent<Movement>().enabled = false;
-        Invoke("NextLevelScene",1f);
+        Invoke("NextLevelScene",2f);
     }
 
     private void RocketCrashHandler()
     {
+        audioSource.PlayOneShot(rocketExplosionAudio);
+        if(isTransitioning == true) audioSource.Stop();
         GetComponent<Movement>().enabled = false;
-        Invoke("ReloadScene", 1f);
+        Invoke("ReloadScene", 2f);
     }
 }
