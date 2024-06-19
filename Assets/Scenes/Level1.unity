@@ -4303,7 +4303,8 @@ PrefabInstance:
       value: Finish Land
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1809199334715630852, guid: 4bf16ed160aaee746a9d9ba19076c394, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bf16ed160aaee746a9d9ba19076c394, type: 3}
@@ -4360,7 +4361,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2360182369615770634, guid: 6f406669c0c5e1c4787c489977d2fc11, type: 3}
+    - {fileID: 4284619531463169808, guid: 6f406669c0c5e1c4787c489977d2fc11, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f406669c0c5e1c4787c489977d2fc11, type: 3}
@@ -4421,7 +4424,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7830108694825051665, guid: 74fc25c9f7b422f419acafccda4d2608, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74fc25c9f7b422f419acafccda4d2608, type: 3}
