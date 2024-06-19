@@ -10,6 +10,9 @@ public class Movement : MonoBehaviour
     [SerializeField] float forcePower;
     [SerializeField] float rotatePower;
     [SerializeField] AudioClip rocketBoostAudio;
+    [SerializeField] ParticleSystem rocketBoosterParticle;
+    [SerializeField] ParticleSystem leftWingParticle;
+    [SerializeField] ParticleSystem rightWingParticle;
 
     // Start is called before the first frame update
     void Start()
@@ -29,24 +32,58 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            rb.AddRelativeForce(Vector3.up * forcePower * Time.deltaTime);
-            if(!audioSource.isPlaying) audioSource.PlayOneShot(rocketBoostAudio);
+            StartGoUp();
         }
         else
         {
-            audioSource.Stop();
+            StopGoUpEffect();
         }
+    }
+
+    private void StopGoUpEffect()
+    {
+        audioSource.Stop();
+        rocketBoosterParticle.Stop();
+    }
+
+    private void StartGoUp()
+    {
+        rb.AddRelativeForce(Vector3.up * forcePower * Time.deltaTime);
+        if (!audioSource.isPlaying) audioSource.PlayOneShot(rocketBoostAudio);
+        if (!rocketBoosterParticle.isPlaying) rocketBoosterParticle.Play();
     }
 
     private void GoRotate()
     {
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            transform.Rotate(Vector3.back * forcePower * Time.deltaTime);
+            StartRotateRight();
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            transform.Rotate(Vector3.forward * forcePower * Time.deltaTime);
+            StartRotateLeft();
         }
+        else
+        {
+            StopRotateEffect();
+        }
+    }
+
+    private void StopRotateEffect()
+    {
+        rightWingParticle.Stop();
+        leftWingParticle.Stop();
+    }
+
+    private void StartRotateLeft()
+    {
+        transform.Rotate(Vector3.forward * forcePower * Time.deltaTime);
+        if (!leftWingParticle.isPlaying) leftWingParticle.Play();
+    }
+
+    private void StartRotateRight()
+    {
+        transform.Rotate(Vector3.back * forcePower * Time.deltaTime);
+        if (!rightWingParticle.isPlaying) rightWingParticle.Play();
     }
 }

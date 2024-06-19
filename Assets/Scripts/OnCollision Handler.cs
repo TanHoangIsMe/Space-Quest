@@ -13,15 +13,22 @@ public class OnCollisionHandler : MonoBehaviour
     AudioSource audioSource;
 
     bool isTransitioning = false;
+    bool isCollisionDisable = false;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
+    private void Update()
+    {
+        Move2NextLevelCheat();
+        CancelCollisionCheat();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if(isTransitioning == true) return;
+        if (isTransitioning == true || isCollisionDisable == true) return;
         else
         {
             switch (collision.gameObject.tag)
@@ -37,7 +44,7 @@ public class OnCollisionHandler : MonoBehaviour
                     break;
             }
         }
-        
+
     }
 
     private void ReloadScene()
@@ -60,7 +67,7 @@ public class OnCollisionHandler : MonoBehaviour
         finishParticle.Play();
         audioSource.PlayOneShot(finishAudio);
         GetComponent<Movement>().enabled = false;
-        Invoke("NextLevelScene",2f);
+        Invoke("NextLevelScene", 2f);
     }
 
     private void RocketCrashHandler()
@@ -70,5 +77,21 @@ public class OnCollisionHandler : MonoBehaviour
         audioSource.PlayOneShot(rocketExplosionAudio);
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadScene", 2f);
+    }
+
+    private void Move2NextLevelCheat()
+    {
+        if (Input.GetKey(KeyCode.L))
+        {
+            NextLevelScene();
+        }
+    }
+
+    private void CancelCollisionCheat()
+    {
+        if (Input.GetKey(KeyCode.C))
+        {
+            isCollisionDisable = !isCollisionDisable;
+        }
     }
 }
