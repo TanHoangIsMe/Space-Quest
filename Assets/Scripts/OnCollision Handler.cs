@@ -36,11 +36,13 @@ public class OnCollisionHandler : MonoBehaviour
                 case "Obstacle":
                     RocketCrashHandler();
                     break;
+                case "Stake":
+                    RocketCrashHandler();
+                    break;
                 case "Finish Land":
                     RocketFinishHandler();
                     break;
                 default:
-                    Debug.Log("");
                     break;
             }
         }

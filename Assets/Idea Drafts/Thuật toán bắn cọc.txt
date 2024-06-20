@@ -1,0 +1,14 @@
+_ check đã có phần tử nào được lấy chưa 
+	+ nếu có -> check khỏi khung hình chưa 
+		* nếu chưa ra -> tác dụng lực lên vật
+
+		* nếu ra rồi -> set chưa có phần tử nào đc lấy
+
+	+ nếu chưa có -> check mảng có trống không
+		* mảng ko trống -> lấy 1 phần tử trong mảng và set đã lấy 1 vật 
+
+		* mảng trống -> tạo mảng mới 
+
+
+
+
