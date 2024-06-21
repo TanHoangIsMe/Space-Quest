@@ -271,9 +271,10 @@ GameObject:
   - component: {fileID: 9105661542486567027}
   - component: {fileID: 1538896737497220135}
   - component: {fileID: 4645607245689100793}
+  - component: {fileID: 1437293364085909933}
   - component: {fileID: 3127802359848673916}
   - component: {fileID: 639692586508951705}
-  - component: {fileID: 1437293364085909933}
+  - component: {fileID: 4997388190163376347}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: Player
@@ -433,6 +434,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 56
   m_CollisionDetection: 0
+--- !u!65 &1437293364085909933
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3118024578276379638}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.662807, y: 3.8447852, z: 1}
+  m_Center: {x: 0.010408163, y: 0.19439936, z: 0}
 --- !u!114 &3127802359848673916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,27 +489,18 @@ MonoBehaviour:
   finishAudio: {fileID: 8300000, guid: 282b9d366f0f35c468c3c66c52a190fb, type: 3}
   explosionParticle: {fileID: 1440579018157498189}
   finishParticle: {fileID: 1003102180838666842}
---- !u!65 &1437293364085909933
-BoxCollider:
+--- !u!114 &4997388190163376347
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3118024578276379638}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.662807, y: 3.8447852, z: 1}
-  m_Center: {x: 0.010408163, y: 0.19439936, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75ed9193a593a604e887b454607d97b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4284619531463169808
 GameObject:
   m_ObjectHideFlags: 0
