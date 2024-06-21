@@ -8,6 +8,9 @@ TagManager:
   - Finish Land
   - Start Land
   - Stake
+  - Point
+  - Teleport Gate
+  - Teleport Destination
   layers:
   - Default
   - TransparentFX

@@ -41,7 +41,6 @@ public class ShootingObstacles : MonoBehaviour
         else
         {
             Vector3 viewPos = cam.WorldToViewportPoint(stakeList[randomStakeNumber].transform.position);
-            Debug.Log(viewPos);
             if (viewPos.y < 1.2f) 
             {
                 stakeList[randomStakeNumber].transform.Translate(new Vector3(0f, 10f, 0f) * Time.deltaTime);

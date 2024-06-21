@@ -11,17 +11,33 @@ public class OnCollisionHandler : MonoBehaviour
     [SerializeField] ParticleSystem finishParticle;
 
     AudioSource audioSource;
+    List<GameObject> pointsList;
 
-    bool isTransitioning = false;
-    bool isCollisionDisable = false;
+    private float timeToNextLevel = 2f;
+    private bool isTransitioning = false;
+    private bool isCollisionDisable = false;
+    private bool isTimeRunning = false;
+    private bool isFinish = false;
+
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        pointsList = new List<GameObject>(GameObject.FindGameObjectsWithTag("Point")); 
     }
 
     private void Update()
     {
+        if (isTimeRunning == true) 
+        { 
+            timeToNextLevel -= Time.deltaTime;
+        }
+
+        // move to next level
+        pointsList = new List<GameObject>(GameObject.FindGameObjectsWithTag("Point"));
+        NextLevelScene(pointsList.Count);
+
+        // Cheat to debug
         Move2NextLevelCheat();
         CancelCollisionCheat();
     }
@@ -39,14 +55,19 @@ public class OnCollisionHandler : MonoBehaviour
                 case "Stake":
                     RocketCrashHandler();
                     break;
+                case "Teleport Gate":
+                    DoTeleport(true);
+                    break;
+                case "Teleport Destination":
+                    DoTeleport(false);
+                    break;
                 case "Finish Land":
-                    RocketFinishHandler();
+                    RocketFinishHandler(pointsList.Count);
                     break;
                 default:
                     break;
             }
         }
-
     }
 
     private void ReloadScene()
@@ -55,21 +76,37 @@ public class OnCollisionHandler : MonoBehaviour
         SceneManager.LoadScene(currentScene);
     }
 
-    private void NextLevelScene()
+    private void NextLevelScene(int point)
     {
-        int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
-        if (nextScene == SceneManager.sceneCountInBuildSettings)
-            SceneManager.LoadScene(0);
-        else SceneManager.LoadScene(nextScene);
+        if(point == 0 && isFinish == true)
+        {
+            if (timeToNextLevel <= 0f)
+            {
+                timeToNextLevel = 2f;
+                isTimeRunning = false;
+                int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
+                if (nextScene == SceneManager.sceneCountInBuildSettings)
+                    SceneManager.LoadScene(0);
+                else SceneManager.LoadScene(nextScene);
+            }
+        }
+        else if (point != 0 && isFinish == true)
+        {
+            ReloadScene();
+        } 
     }
 
-    private void RocketFinishHandler()
+    private void RocketFinishHandler(int point)
     {
+        isFinish = true;
         isTransitioning = true;
-        finishParticle.Play();
-        audioSource.PlayOneShot(finishAudio);
+        if (point == 0)
+        {
+            finishParticle.Play();
+            isTimeRunning = true;
+            audioSource.PlayOneShot(finishAudio);
+        }      
         GetComponent<Movement>().enabled = false;
-        Invoke("NextLevelScene", 2f);
     }
 
     private void RocketCrashHandler()
@@ -85,7 +122,7 @@ public class OnCollisionHandler : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.L))
         {
-            NextLevelScene();
+            NextLevelScene(3);
         }
     }
 
@@ -95,5 +132,21 @@ public class OnCollisionHandler : MonoBehaviour
         {
             isCollisionDisable = !isCollisionDisable;
         }
+    }
+
+    private void DoTeleport(bool direction)
+    {
+        if (direction)
+        {
+            GameObject teleportDestination = GameObject.FindWithTag("Teleport Destination");
+            gameObject.transform.position = teleportDestination.transform.position
+                + new Vector3(3f, -2f, 0f);
+        }
+        else 
+        {
+            GameObject teleportGate = GameObject.FindWithTag("Teleport Gate");
+            gameObject.transform.position = teleportGate.transform.position
+                + new Vector3(-3f, 0f, 0f);
+        }        
     }
 }
